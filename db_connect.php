@@ -1,8 +1,8 @@
-<? php
+<?php
 
 /* Class to connect to database */
 
-class DB_CONNECT{
+class DB_CONNECT {
 
     // Constructor
     function __construct() {
