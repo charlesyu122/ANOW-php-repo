@@ -15,9 +15,8 @@ if( isset($_POST['eventName']) && isset($_POST['timeStart']) && isset($_POST['da
     $dateStart = $_POST['dateStart'];
     $location = $_POST['location'];
     $description = $_POST['description'];
-    $type = "A"; // for activity
+    $type = "A";
     $private = $_POST['private'];
-    $username = $_POST['username'];
 
     // include db connect class
     require_once __DIR__ . '/db_connect.php';
@@ -27,17 +26,13 @@ if( isset($_POST['eventName']) && isset($_POST['timeStart']) && isset($_POST['da
 
     // mysql insert a row to Users table
     $result = mysql_query("INSERT INTO events(event_name, time_start, date_start, location, description, type, private) VALUES('$eventName','$timeStart','$dateStart','$location','$description','$type','$private')");
-    $eventid = mysql_insert_id();
-    $astat = "S"; // for self made
-    // mysql insert a row to Attends table
-    $result2 = mysql_query("INSERT INTO attends(username, event_id, status) VALUES('$username','$eventid','$astat')");
-    
     
     // check if successfully installed
-    if($result2) {
+    if($result) {
         // successfully inserted into database
         $response["success"] = 1;
         $response["message"] = "Account successfully created.";
+        $response["eventid"] = mysql_insert_id();
 
         // echoing JSON response
         echo json_encode($response);
