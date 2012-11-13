@@ -8,11 +8,12 @@
 $response = array();
 
 // check for required fields
-if( isset($_POST['eventName']) && isset($_POST['timeStart']) && isset($_POST['dateStart']) && isset($_POST['location']) && isset($_POST['description']) && isset($_POST['private'])){
+if( isset($_POST['eventName']) && isset($_POST['timeStart']) && isset($_POST['dateStart']) && isset($_POST['dateEnd']) && isset($_POST['location']) && isset($_POST['description']) && isset($_POST['private'])){
 
     $eventName = $_POST['eventName'];
     $timeStart = $_POST['timeStart'];
     $dateStart = $_POST['dateStart'];
+    $dateEnd = $_POST['dateEnd'];
     $location = $_POST['location'];
     $description = $_POST['description'];
     $type = "A"; // for activity
@@ -26,7 +27,7 @@ if( isset($_POST['eventName']) && isset($_POST['timeStart']) && isset($_POST['da
     $db = new DB_CONNECT();
 
     // mysql insert a row to Users table
-    $result = mysql_query("INSERT INTO events(event_name, time_start, date_start, location, description, type, private) VALUES('$eventName','$timeStart','$dateStart','$location','$description','$type','$private')");
+    $result = mysql_query("INSERT INTO events(event_name, time_start, date_start, date_end, location, description, type, private) VALUES('$eventName','$timeStart','$dateStart','$dateEnd','$location','$description','$type','$private')");
     $eventid = mysql_insert_id();
     $astat = "S"; // for self made
     // mysql insert a row to Attends table
