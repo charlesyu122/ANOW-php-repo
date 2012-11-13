@@ -32,7 +32,6 @@ if (mysql_num_rows($result) > 0) {
         $event["event_name"] = $row["event_name"];
         $event["time_start"] = $row["time_start"];
         $event["date_start"] = $row["date_start"];
-        $event["date_end"] = $row["date_end"];
         $event["location"] = $row["location"];
         $event["description"] = $row["description"];
         $event["image"] = $row["image"];
