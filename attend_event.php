@@ -29,6 +29,9 @@ if( isset($_POST['username']) && isset($_POST['event_id']) && isset($_POST['priv
         // successfully inserted into database
         $response["success"] = 1;
         $response["message"] = "Attendance successfully created.";
+        
+        // query to update username's event_count
+        mysql_query("UPDATE Users SET event_count = event_count + 1 WHERE username ='$username'");
 
         // echoing JSON response
         echo json_encode($response);
