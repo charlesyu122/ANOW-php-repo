@@ -8,12 +8,13 @@
 $response = array();
 
 // check for required fields
-if( isset($_POST['username']) && isset($_POST['event_id']) && isset($_POST['private']) ){
+if( isset($_POST['username']) && isset($_POST['event_id']) && isset($_POST['private']) && isset($_POST['attend_date']) ){
 
     $username = $_POST['username'];
     $eventId = $_POST['event_id'];
     $private = $_POST['private'];
     $status = 'C';
+    $attendDate = $_POST['attend_date'];
 
     // include db connect class
     require_once __DIR__ . '/db_connect.php';
@@ -22,7 +23,7 @@ if( isset($_POST['username']) && isset($_POST['event_id']) && isset($_POST['priv
     $db = new DB_CONNECT();
 
     // mysql insert a row to Attends table
-    $result = mysql_query("INSERT INTO attends(username, event_id, status, private) VALUES('$username','$eventId','$status','$private')");
+    $result = mysql_query("INSERT INTO attends(username, event_id, status, private, attend_date) VALUES('$username','$eventId','$status','$private','$attendDate')");
 
     // check if successfully installed
     if($result) {

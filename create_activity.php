@@ -31,7 +31,7 @@ if( isset($_POST['eventName']) && isset($_POST['timeStart']) && isset($_POST['da
     $eventid = mysql_insert_id();
     $astat = "S"; // for self made
     // mysql insert a row to Attends table
-    $result2 = mysql_query("INSERT INTO attends(username, event_id, status, private) VALUES('$username','$eventid','$astat','$private')");
+    $result2 = mysql_query("INSERT INTO attends(username, event_id, status, private, attend_date) VALUES('$username','$eventid','$astat','$private','$dateStart')");
     
     
     // check if successfully installed
