@@ -41,15 +41,6 @@ if (mysql_num_rows($result) > 0) {
         	$friend["hobbies"] = $info["hobbies"];
         	$friend["event_count"] = $info["event_count"];
         	$friend["profile_image"] = $info["profile_image"];
-        	
-        	// for friend of friends
-        	if(isset($_POST['username_loggedin'])){
-        		$usernameLoggedIn = $_POST['username_loggedin'];
-        		if(mysql_num_rows(mysql_query("SELECT * from friends where username = '$usernameLoggedIn' and friend_username = '$friend[username]'")) == 1)
-        			$friend["status"] = "friends";
-        		else
-        			$friend["status"] = "strangers";
-        	}
 
         	// push single friend into final response array
         	array_push($response["friends"], $friend);
