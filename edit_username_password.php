@@ -27,7 +27,7 @@ if(isset($_POST['password']) && isset($_POST['username']))
 		if (mysql_num_rows($result) > 0) {
 		
 			// mysql update row with matched id and password
-			mysql_query("UPDATE users SET username = '$new_username' WHERE username = '$username' AND password = '$password'");
+			mysql_query("UPDATE users, attends, friends SET users.username = '$new_username', attends.username = '$new_username', friends.username = '$username' WHERE users.username = '$username' AND users.password = '$password'");
 			$response["success"] = 1;
 			$response["message"] = "Username successfully updated.";
 
@@ -47,7 +47,7 @@ if(isset($_POST['password']) && isset($_POST['username']))
 		if (mysql_num_rows($result) > 0) {
 		
 			// mysql update row with matched id and password
-			$result = mysql_query("UPDATE users SET password = '$new_password' WHERE username = '$username' AND password = '$password'");
+			mysql_query("UPDATE users SET password = '$new_password' WHERE username = '$username' AND password = '$password'");
 			$response["success"] = 1;
 			$response["message"] = "Password successfully updated.";
 
