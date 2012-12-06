@@ -17,53 +17,63 @@ if(isset($_POST['password']) && isset($_POST['username']))
 	$password = $_POST['password'];
 	
 	//mysql select to check if the current username and the recently inputted confirm password match
-	$result = mysql_query("SELECT username, password FROM users WHERE username = '$username' AND password = '$password'");
+	$result = mysql_query("SELECT * FROM users WHERE username = '$username'");
 	
-	//edit username
-	if(isset($_POST['new_username']))
-	{
-		$new_username = $_POST['new_username'];
+	if(mysql_num_rows($result)==1){
+	
+		$row = mysql_fetch_assoc($result);
+		if($row["password"] == $password){ 
+			
+			// user is verified
+			
+			//edit username
+			if(isset($_POST['new_username'])){
+			
+				$new_username = $_POST['new_username'];
+			
+				// mysql update row with matched id and password
+				mysql_query("UPDATE users SET username = '$new_username' WHERE username = '$username'");
+				mysql_query("UPDATE attends SET username = '$new_username' WHERE username = '$username'");
+				mysql_query("UPDATE friends SET username = '$new_username' WHERE username = '$username'");
+				mysql_query("UPDATE friends SET friend_username = '$new_username' WHERE friend_username = '$username'");
+				
+				$response["success"] = 1;
+				$response["message"] = "Username successfully updated.";
+	
+				// echoing JSON response
+				echo json_encode($response);
+			}
+			else if(isset($_POST['new_password'])){ // edit password
+			
+				$new_password = $_POST['new_password'];
+							
+				// mysql update row with matched id and password
+				mysql_query("UPDATE users SET password = '$new_password' WHERE username = '$username'");
+				$response["success"] = 1;
+				$response["message"] = "Password successfully updated.";
 		
-		if (mysql_num_rows($result) > 0) {
-		
-			// mysql update row with matched id and password
-			mysql_query("UPDATE users, attends, friends SET users.username = '$new_username', attends.username = '$new_username', friends.username = '$username' WHERE users.username = '$username' AND users.password = '$password'");
-			$response["success"] = 1;
-			$response["message"] = "Username successfully updated.";
-
-		} else {
+				// echoing JSON response
+				echo json_encode($response);
+			}
+			
+		}else{
 			// confirm password is incorrect
 			$response["success"] = 0;
-			$response["message"] = "Password is incorrect.";
+			$response["message"] = "Invalid username/password";
+			
+			// echoing JSON response
+			echo json_encode($response);
+			
 		}
-		
-		// echoing JSON response
-		echo json_encode($response);
-	}
-	else if(isset($_POST['new_password']))
-	{
-		$new_password = $_POST['new_password'];
-		
-		if (mysql_num_rows($result) > 0) {
-		
-			// mysql update row with matched id and password
-			mysql_query("UPDATE users SET password = '$new_password' WHERE username = '$username' AND password = '$password'");
-			$response["success"] = 1;
-			$response["message"] = "Password successfully updated.";
-
-		} else {
-			// confirm password is incorrect
-			$response["success"] = 0;
-			$response["message"] = "Password is incorrect.";
-		}
-		
-		// echoing JSON response
-		echo json_encode($response);
 	}
 		
 }else {
+    // required field is missing
+    $response["success"] = 0;
+    $response["message"] = "Required field(s) is missing";
 
-	//loading into this page without logging in
+    // echoing JSON response
+    echo json_encode($response);
 }
 
 ?>
