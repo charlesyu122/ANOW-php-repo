@@ -25,9 +25,10 @@ if( isset($_POST['event_id']) && isset($_POST['username']) ){
        $status = "I";
     	    
        // mysql insert a row to Attends table. Loop thru the array of invited people
-       for($i=0; $i < count($invited); $i++)
+       for($i=0; $i < count($invited); $i++){
           $result2 = mysql_query("INSERT INTO attends(username, event_id, status, private, attend_date, invitee_username) VALUES('$invited[$i]','$eventId','$status','$privacy','$attendDate','$username')");
        
+       }
        // successfully inserted into database
        $response["success"] = 1;
        $response["message"] = "Attendance successfully created.";
