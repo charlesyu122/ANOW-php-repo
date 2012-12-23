@@ -12,10 +12,9 @@ $db = new DB_CONNECT();
 //receive POSTS
 $eventId = $_POST['event_id'];
 $loggedInUsername = $_POST['username_loggedin'];
-$status = 'C';
 
 // get all products from products table
-$result = mysql_query("SELECT * FROM attends where event_id = '$eventId' and status = '$status'") or die(mysql_error());
+$result = mysql_query("SELECT * FROM attends where event_id = '$eventId'") or die(mysql_error());
 
 // check for empty result
 if (mysql_num_rows($result) > 0) {
