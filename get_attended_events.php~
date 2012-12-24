@@ -18,9 +18,10 @@ $db = new DB_CONNECT();
 $username = $_POST['username'];
 $beginDate = $_POST['begin_date'];
 $endDate = $_POST['end_date'];
+$status = 'C';
 
 // get all event_id fomr attendance table
-$result = mysql_query("SELECT * FROM attends where username = '$username' AND attend_date >= '$beginDate' AND attend_date <= '$endDate'") or die(mysql_error());
+$result = mysql_query("SELECT * FROM attends where username = '$username' AND status = '$status' AND attend_date >= '$beginDate' AND attend_date <= '$endDate'") or die(mysql_error());
 
 // check for empty result
 if (mysql_num_rows($result) > 0){
