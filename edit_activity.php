@@ -12,28 +12,22 @@ require_once __DIR__ . '/db_connect.php';
 // connecting to db
 $db = new DB_CONNECT();
 
-$old_name = $_POST['old_name'];
+$activityId = $_POST['activity_id'];
 $name = $_POST['name'];
 $loc = $_POST['loc'];
 $desc = $_POST['desc'];
 
 //mysql select to check if event name exists
-$result = mysql_query("SELECT event_name FROM events WHERE event_name = '$old_name'") or die(mysql_error());
+$result = mysql_query("UPDATE events  SET event_name = '$name', location = '$loc', description = '$desc' WHERE event_id = '$activityId'");
 
-if(mysql_num_rows($result) == 1){
-
-	// mysql update in table events
-	mysql_query("UPDATE events SET event_name = '$name', location = '$loc', description = '$desc' WHERE event_name = '$old_name'");
-			
-	$response["success"] = 1;
-	$response["message"] = "Event profile successfully updated.";
-
+if($result){
+    $response["success"] = 1;
+    $response["message"] = "Event profile successfully updated.";
 }
 else
 {
-	$response["success"] = 0;
-	$response["message"] = "Event profile unsuccessfully updated.";
-	
+    $response["success"] = 0;
+    $response["message"] = "Event profile unsuccessfully updated.";	
 }
 
 // echoing JSON response
