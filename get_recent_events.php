@@ -23,7 +23,7 @@ $result = mysql_query("SELECT * FROM events where date_end >= '$today' AND type 
 
 // check for empty result
 if (mysql_num_rows($result) > 0) {
-	
+
     // looping through all events
     $response["events"] = array();
 
