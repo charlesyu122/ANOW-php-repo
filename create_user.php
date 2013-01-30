@@ -23,7 +23,7 @@ if( isset($_POST['username']) && isset($_POST['password']) && isset($_POST['name
     $db = new DB_CONNECT();
 
     // mysql insert a row to Users table
-    $result = mysql_query("INSERT INTO users(username, password, name, birthday, hobbies) VALUES('$username','$password','$name','$birthday','$hobbies')");
+    $result = mysql_query("INSERT INTO users(username, password, name, birthday, hobbies, type) VALUES('$username','$password','$name','$birthday','$hobbies','M')");
 
     // check if successfully installed
     if($result) {

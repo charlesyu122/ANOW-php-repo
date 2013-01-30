@@ -20,7 +20,7 @@ if( isset($_POST['username']) && isset($_POST['password'])){
   $db = new DB_CONNECT();
 
   // mysql select to find username
-  $result = mysql_query("SELECT * from Users WHERE username = '$username'");
+  $result = mysql_query("SELECT * from Users WHERE username = '$username' and type = 'M'");
 
   if($result){
     // mysql get password of result
