@@ -1,5 +1,5 @@
 <?php
-$target_path1 = "uploads/";
+$target_path1 = "../CI/images/profile_images/";
 /* Add the original filename to our target path.
 Result is "uploads/filename.extension" */
 $target_path1 = $target_path1 . basename( $_FILES['uploaded_file']['name']);
