@@ -11,11 +11,11 @@ $db = new DB_CONNECT();
 
 //receive POSTS
 $today = $_POST['today'];
-$username = $_POST['username'];
+$userId = $_POST['user_id'];
 $check = "false";
 
 // get all attendance starting today
-$result = mysql_query("SELECT * FROM attends where username = '$username' AND attend_date >= '$today'");
+$result = mysql_query("SELECT * FROM attends where user_id = '$userId' AND attend_date >= '$today'");
 
 // check for empty result
 if (mysql_num_rows($result) > 0) {
@@ -50,8 +50,8 @@ if (mysql_num_rows($result) > 0) {
 
 		   // delete attendance
 		   mysql_query("DELETE FROM attends WHERE attend_id = '$attendId'");
-		   // query to update username's event_count
-        	   mysql_query("UPDATE Users SET event_count = event_count - 1 WHERE username ='$username'");
+		   // query to update user's event_count
+        	   mysql_query("UPDATE Users SET event_count = event_count - 1 WHERE user_id ='$userId'");
 		}
         }
     }

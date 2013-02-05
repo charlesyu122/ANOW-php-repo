@@ -5,7 +5,7 @@
 $response = array();
 
 //to avoid getting into this portion without logging in
-if(isset($_POST['password']) && isset($_POST['username']))
+if(isset($_POST['password']) && isset($_POST['user_id']))
 {
 	// include db connect class
 	require_once __DIR__ . '/db_connect.php';
@@ -13,11 +13,11 @@ if(isset($_POST['password']) && isset($_POST['username']))
 	// connecting to db
 	$db = new DB_CONNECT();
 	
-	$username = $_POST['username'];
 	$password = $_POST['password'];
+	$userId = $_POST['user_id'];
 	
 	//mysql select to check if the current username and the recently inputted confirm password match
-	$result = mysql_query("SELECT * FROM users WHERE username = '$username'");
+	$result = mysql_query("SELECT * FROM users WHERE user_id = '$userId'");
 	
 	if(mysql_num_rows($result)==1){
 	
@@ -32,11 +32,8 @@ if(isset($_POST['password']) && isset($_POST['username']))
 				$new_username = $_POST['new_username'];
 			
 				// mysql update row with matched id and password
-				mysql_query("UPDATE users SET username = '$new_username' WHERE username = '$username'");
-				mysql_query("UPDATE attends SET username = '$new_username' WHERE username = '$username'");
-				mysql_query("UPDATE friends SET username = '$new_username' WHERE username = '$username'");
-				mysql_query("UPDATE friends SET friend_username = '$new_username' WHERE friend_username = '$username'");
-				
+				mysql_query("UPDATE users SET username = '$new_username' WHERE user_id = '$userId'");
+							
 				$response["success"] = 1;
 				$response["message"] = "Username successfully updated.";
 	
@@ -48,7 +45,7 @@ if(isset($_POST['password']) && isset($_POST['username']))
 				$new_password = $_POST['new_password'];
 							
 				// mysql update row with matched id and password
-				mysql_query("UPDATE users SET password = '$new_password' WHERE username = '$username'");
+				mysql_query("UPDATE users SET password = '$new_password' WHERE user_id = '$userId'");
 				$response["success"] = 1;
 				$response["message"] = "Password successfully updated.";
 		

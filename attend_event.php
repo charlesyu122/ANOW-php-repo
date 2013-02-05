@@ -8,9 +8,9 @@
 $response = array();
 
 // check for required fields
-if( isset($_POST['username']) && isset($_POST['event_id']) && isset($_POST['private']) && isset($_POST['attend_date']) ){
+if( isset($_POST['user_id']) && isset($_POST['event_id']) && isset($_POST['private']) && isset($_POST['attend_date']) ){
 
-    $username = $_POST['username'];
+    $userId = $_POST['user_id'];
     $eventId = $_POST['event_id'];
     $private = $_POST['private'];
     $status = 'C';
@@ -23,7 +23,7 @@ if( isset($_POST['username']) && isset($_POST['event_id']) && isset($_POST['priv
     $db = new DB_CONNECT();
 
     // mysql insert a row to Attends table
-    $result = mysql_query("INSERT INTO attends(username, event_id, status, private, attend_date) VALUES('$username','$eventId','$status','$private','$attendDate')");
+    $result = mysql_query("INSERT INTO attends(user_id, event_id, status, private, attend_date) VALUES('$userId','$eventId','$status','$private','$attendDate')");
 
     // check if successfully installed
     if($result) {
@@ -32,7 +32,7 @@ if( isset($_POST['username']) && isset($_POST['event_id']) && isset($_POST['priv
         $response["message"] = "Attendance successfully created.";
         
         // query to update username's event_count
-        mysql_query("UPDATE Users SET event_count = event_count + 1 WHERE username ='$username'");
+        mysql_query("UPDATE Users SET event_count = event_count + 1 WHERE user_id ='$userId'");
 
         // echoing JSON response
         echo json_encode($response);

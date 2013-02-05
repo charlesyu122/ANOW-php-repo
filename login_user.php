@@ -27,6 +27,7 @@ if( isset($_POST['username']) && isset($_POST['password'])){
     $row = mysql_fetch_assoc($result);
     if($row['password'] == $password){
        // passwords match
+       $response["user_id"] = $row["user_id"];
        $response["success"] = 1;
        $response["message"] = "Successfully logged in.";
        

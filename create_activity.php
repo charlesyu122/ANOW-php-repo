@@ -18,7 +18,7 @@ if( isset($_POST['eventName']) && isset($_POST['timeStart']) && isset($_POST['da
     $description = $_POST['description'];
     $type = "A"; // for activity
     $private = $_POST['private'];
-    $username = $_POST['username'];
+    $userId = $_POST['user_id'];
 
     // include db connect class
     require_once __DIR__ . '/db_connect.php';
@@ -26,12 +26,12 @@ if( isset($_POST['eventName']) && isset($_POST['timeStart']) && isset($_POST['da
     // connecting to db
     $db = new DB_CONNECT();
 
-    // mysql insert a row to Users table
+    // mysql insert a row to Events table
     $result = mysql_query("INSERT INTO events(event_name, time_start, date_start, date_end, location, description, type) VALUES('$eventName','$timeStart','$dateStart','$dateEnd','$location','$description','$type')");
     $eventid = mysql_insert_id();
     $astat = "S"; // for self made
     // mysql insert a row to Attends table
-    $result2 = mysql_query("INSERT INTO attends(username, event_id, status, private, attend_date) VALUES('$username','$eventid','$astat','$private','$dateStart')");
+    $result2 = mysql_query("INSERT INTO attends(user_id, event_id, status, private, attend_date) VALUES('$userId','$eventid','$astat','$private','$dateStart')");
     
     
     // check if successfully installed

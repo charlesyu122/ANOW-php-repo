@@ -10,11 +10,11 @@ require_once __DIR__ . '/db_connect.php';
 $db = new DB_CONNECT();
 
 //receive POSTS
-$username = $_POST['username'];
+$userId = $_POST['user_id'];
 $invite = 'I';
 
 // get all invitations from attends table
-$result = mysql_query("SELECT * FROM attends where username = '$username' and status = '$invite'");
+$result = mysql_query("SELECT * FROM attends where user_id = '$userId' and status = '$invite'");
 
 // check for empty result
 if (mysql_num_rows($result) > 0) {
@@ -28,7 +28,7 @@ if (mysql_num_rows($result) > 0) {
         
         // get neccessary info from attends query
         $invitation["attend_id"] = $row["attend_id"];
-        $inviteeUsername = $row["invitee_username"];
+        $inviteeUserId = $row["invitee_user_id"];
         $eventId = $row["event_id"];
         
         // query to events table 
@@ -39,7 +39,7 @@ if (mysql_num_rows($result) > 0) {
         $invitation["event_image"] = $row2["image"];
         
         // query to users table
-        $result3 = mysql_query("SELECT * from users where username = '$inviteeUsername'");
+        $result3 = mysql_query("SELECT * from users where user_id = '$inviteeUserId'");
         $row3 = mysql_fetch_assoc($result3);
         
         $invitation["invitee_name"] = $row3["name"];

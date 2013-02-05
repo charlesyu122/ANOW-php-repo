@@ -4,10 +4,10 @@
 $response = array();
 
 // check for required fields
-if( isset($_POST['logged_in']) && isset($_POST['username']) ){
+if( isset($_POST['logged_in']) && isset($_POST['user_id']) ){
 
-    $loggedInUsername = $_POST['logged_in'];
-    $username = $_POST['username'];
+    $loggedInUserId = $_POST['logged_in'];
+    $userId = $_POST['user_id'];
 
     // include db connect class
     require_once __DIR__ . '/db_connect.php';
@@ -16,7 +16,7 @@ if( isset($_POST['logged_in']) && isset($_POST['username']) ){
     $db = new DB_CONNECT();
 
     // mysql insert a row to Attends table
-    $result = mysql_query("INSERT INTO friends(username, friend_username) VALUES('$loggedInUsername','$username')");
+    $result = mysql_query("INSERT INTO friends(user_id, friend_user_id) VALUES('$loggedInUserId','$userId')");
 
     // check if successfully installed
     if($result) {

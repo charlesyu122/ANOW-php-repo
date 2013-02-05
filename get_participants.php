@@ -11,7 +11,7 @@ $db = new DB_CONNECT();
 
 //receive POSTS
 $eventId = $_POST['event_id'];
-$loggedInUsername = $_POST['username_loggedin'];
+$loggedInUserId = $_POST['user_id_loggedin'];
 $status = 'C';
 
 // get all products from products table
@@ -27,27 +27,28 @@ if (mysql_num_rows($result) > 0) {
         // temp user array
         $participant = array();
         
-        // username of attendee
-        $participantUsername = $row["username"];
+        // user id of attendee
+        $participantUserId = $row["user_id"];
         
         // query to attends table 
-        $result2 = mysql_query("SELECT * from users where username = '$participantUsername'");
+        $result2 = mysql_query("SELECT * from users where user_id = '$participantUserId'");
         
         if(mysql_num_rows($result2) == 1){
         	
         	$info = mysql_fetch_assoc($result2);
         	
+		$participant["user_id"] = $info["user_id"];
         	$participant["username"] = $info["username"];
         	$participant["name"] = $info["name"];
         	$participant["birthday"] = $info["birthday"];
         	$participant["hobbies"] = $info["hobbies"];
         	$participant["event_count"] = $info["event_count"];
         	$participant["profile_image"] = $info["profile_image"];
-        	if(mysql_num_rows(mysql_query("SELECT * from friends where username = '$loggedInUsername' and friend_username = '$participant[username]'")) == 1)
+        	if(mysql_num_rows(mysql_query("SELECT * from friends where user_id = '$loggedInUserId' and friend_user_id = '$participant[user_id]'")) == 1)
         		$participant["status"] = "friends";
         	else
         		$participant["status"] = "strangers";
-        	if($loggedInUsername == $participant["username"])
+        	if($loggedInUserId == $participant["user_id"])
         		$participant["status"] = "friends";
 
         	// push single friend into final response array

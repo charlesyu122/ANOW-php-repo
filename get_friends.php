@@ -10,12 +10,12 @@ require_once __DIR__ . '/db_connect.php';
 $db = new DB_CONNECT();
 
 //receive POSTS
-$username = $_POST['username'];
-$loggedInUsername = $_POST['loggedInUsername'];
+$userId = $_POST['user_id'];
+$loggedInUserId = $_POST['loggedInUserId'];
 
 
 // get all products from products table
-$result = mysql_query("SELECT * FROM friends where username = '$username'") or die(mysql_error());
+$result = mysql_query("SELECT * FROM friends where user_id = '$userId'") or die(mysql_error());
 
 // check for empty result
 if (mysql_num_rows($result) > 0) {
@@ -28,17 +28,18 @@ if (mysql_num_rows($result) > 0) {
         $friend = array();
         
         // id of traversed event
-        $friendUsername = $row["friend_username"];
+        $friendUserId = $row["friend_user_id"];
         
-	if($friendUsername != $loggedInUsername){
+	if($friendUserId != $loggedInUserId){
 
         	// query to attends table 
-       		$result2 = mysql_query("SELECT * from users where username = '$friendUsername'");
+       		$result2 = mysql_query("SELECT * from users where user_id = '$friendUserId'");
         	
         	if(mysql_num_rows($result2) == 1){
         	
         		$info = mysql_fetch_assoc($result2);
         	
+			$friend["user_id"] = $info["user_id"];
         		$friend["username"] = $info["username"];
         		$friend["name"] = $info["name"];
         		$friend["birthday"] = $info["birthday"];
@@ -47,9 +48,9 @@ if (mysql_num_rows($result) > 0) {
         		$friend["profile_image"] = $info["profile_image"];
         	
         		// for friend of friends
-        		if(isset($_POST['loggedInUsername'])){
-        			$usernameLoggedIn = $_POST['loggedInUsername'];
-        			if(mysql_num_rows(mysql_query("SELECT * from friends where username = '$usernameLoggedIn' and friend_username = '$friend[username]'")) == 1)
+        		if(isset($_POST['loggedInUserId'])){
+        			$userIdLoggedIn = $_POST['loggedInUserId'];
+        			if(mysql_num_rows(mysql_query("SELECT * from friends where user_id = '$userIdLoggedIn' and friend_user_id = '$friend[user_id]'")) == 1)
         				$friend["status"] = "friends";
         			else
         				$friend["status"] = "strangers";

@@ -5,7 +5,7 @@
 $response = array();
 
 //to avoid getting into this portion without logging in
-if(isset($_POST['password']) && isset($_POST['username']))
+if(isset($_POST['password']) && isset($_POST['user_id']))
 {
 	// include db connect class
 	require_once __DIR__ . '/db_connect.php';
@@ -13,11 +13,11 @@ if(isset($_POST['password']) && isset($_POST['username']))
 	// connecting to db
 	$db = new DB_CONNECT();
 	
-	$username = $_POST['username'];
+	$userId = $_POST['user_id'];
 	$password = $_POST['password'];
 	$picturePath = $_POST['picturePath'];
 	
-	$result = mysql_query("UPDATE users SET profile_image = '$picturePath' WHERE  username = '$username'");
+	$result = mysql_query("UPDATE users SET profile_image = '$picturePath' WHERE  user_id = '$userId'");
 	
 	//Check if query was successful or not
 	if($result)

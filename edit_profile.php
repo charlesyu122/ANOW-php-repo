@@ -7,9 +7,9 @@
 $response = array();
 
 // check for required fields
-if (isset($_POST['username']) && isset($_POST['name']) && isset($_POST['birthday']) && isset($_POST['hobbies'])) {
+if (isset($_POST['user_id']) && isset($_POST['name']) && isset($_POST['birthday']) && isset($_POST['hobbies'])) {
 
-    $username = $_POST['username'];
+    $userId = $_POST['user_id'];
     $name = $_POST['name'];
     $birthday = $_POST['birthday'];
     $hobbies = $_POST['hobbies'];
@@ -21,7 +21,7 @@ if (isset($_POST['username']) && isset($_POST['name']) && isset($_POST['birthday
     $db = new DB_CONNECT();
 
     // mysql update row with matched pid
-    $result = mysql_query("UPDATE users SET name = '$name', birthday = '$birthday', hobbies = '$hobbies' WHERE username = '$username'");
+    $result = mysql_query("UPDATE users SET name = '$name', birthday = '$birthday', hobbies = '$hobbies' WHERE user_id = '$userId'");
 
     // check if row inserted or not
     if ($result) {
