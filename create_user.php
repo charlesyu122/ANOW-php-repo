@@ -15,6 +15,7 @@ if( isset($_POST['username']) && isset($_POST['password']) && isset($_POST['name
     $name = $_POST['name'];
     $birthday = $_POST['birthday'];
     $hobbies = $_POST['hobbies'];
+    $image = $_POST['image'];
 
     // include db connect class
     require_once __DIR__ . '/db_connect.php';
@@ -23,7 +24,7 @@ if( isset($_POST['username']) && isset($_POST['password']) && isset($_POST['name
     $db = new DB_CONNECT();
 
     // mysql insert a row to Users table
-    $result = mysql_query("INSERT INTO users(username, password, name, birthday, hobbies, type) VALUES('$username','$password','$name','$birthday','$hobbies','M')");
+    $result = mysql_query("INSERT INTO users(username, password, name, birthday, hobbies, type, profile_image) VALUES('$username','$password','$name','$birthday','$hobbies','M','$image')");
 
     // check if successfully installed
     if($result) {
