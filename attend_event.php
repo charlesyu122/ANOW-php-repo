@@ -17,13 +17,13 @@ if( isset($_POST['user_id']) && isset($_POST['event_id']) && isset($_POST['priva
     $attendDate = $_POST['attend_date'];
 
     // include db connect class
-    require_once __DIR__ . '/db_connect.php';
+    include '../ANowPhp/db_connect.php';
 
     // connecting to db
     $db = new DB_CONNECT();
 
     // mysql insert a row to Attends table
-    $result = mysql_query("INSERT INTO attends(user_id, event_id, status, private, attend_date) VALUES('$userId','$eventId','$status','$private','$attendDate')");
+    $result = mysql_query("INSERT INTO attends VALUES('','$userId','$eventId','$status','$private','$attendDate',0)");
 
     // check if successfully installed
     if($result) {
@@ -32,7 +32,7 @@ if( isset($_POST['user_id']) && isset($_POST['event_id']) && isset($_POST['priva
         $response["message"] = "Attendance successfully created.";
         
         // query to update username's event_count
-        mysql_query("UPDATE Users SET event_count = event_count + 1 WHERE user_id ='$userId'");
+        mysql_query("UPDATE users SET event_count = event_count + 1 WHERE user_id ='$userId'");
 
         // echoing JSON response
         echo json_encode($response);

@@ -19,7 +19,7 @@ class DB_CONNECT {
      // Function to connect with database
     function connect() {
         // import database connection variables
-        require_once __DIR__ . '/db_config.php';
+        include '../ANowPhp/db_config.php';
 
         // Connecting to mysql database
         $con = mysql_connect(DB_SERVER, DB_USER, DB_PASSWORD) or die(mysql_error());

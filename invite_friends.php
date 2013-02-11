@@ -8,10 +8,15 @@ if( isset($_POST['event_id']) && isset($_POST['user_id']) ){
 
     $userId = $_POST['user_id'];
     $eventId = $_POST['event_id'];
-    $invited = json_decode($_POST['invited']);
+    //$invited = json_decode($_POST['invited']);
+	
+    if( get_magic_quotes_gpc() ) {
+        $_POST['invited'] = stripslashes( $_POST['invited'] );
+    }
+    $invited = json_decode( $_POST['invited'] );
 
     // include db connect class
-    require_once __DIR__ . '/db_connect.php';
+    include '../ANowPhp/db_connect.php';
 
     // connecting to db
     $db = new DB_CONNECT();
@@ -29,7 +34,7 @@ if( isset($_POST['event_id']) && isset($_POST['user_id']) ){
        	  // check first if user is already attending
        	  $check = mysql_query("SELECT * FROM attends where user_id = '$invited[$i]' and event_id = '$eventId'");
        	  if(mysql_num_rows($check) == 0)
-       	  	  $result2 = mysql_query("INSERT INTO attends(user_id, event_id, status, private, attend_date, invitee_user_id) VALUES('$invited[$i]','$eventId','$status','$privacy','$attendDate','$userId')");
+       	     $result2 = mysql_query("INSERT INTO attends VALUES('','$invited[$i]','$eventId','$status','$privacy','$attendDate','$userId')");
        }
        // successfully inserted into database
        $response["success"] = 1;

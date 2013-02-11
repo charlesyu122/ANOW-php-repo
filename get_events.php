@@ -4,13 +4,18 @@
 $response = array();
 
 // include db connect class
-require_once __DIR__ . '/db_connect.php';
+include '../ANowPhp/db_connect.php';
 
 // connecting to db
 $db = new DB_CONNECT();
 
 //receive POSTS
-$eventIds = json_decode($_POST['event_ids']);
+//$eventIds = json_decode($_POST['event_ids']);
+
+if( get_magic_quotes_gpc() ) {
+    $_POST['event_ids'] = stripslashes( $_POST['event_ids'] );
+}
+$eventIds = json_decode( $_POST['event_ids'] );
 
 // looping through all events
 $response["events"] = array();

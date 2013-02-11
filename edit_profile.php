@@ -14,7 +14,7 @@ if (isset($_POST['user_id']) && isset($_POST['name']) && isset($_POST['hobbies']
     $hobbies = $_POST['hobbies'];
 
     // include db connect class
-    require_once __DIR__ . '/db_connect.php';
+    include '../ANowPhp/db_connect.php';
 
     // connecting to db
     $db = new DB_CONNECT();

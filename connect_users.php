@@ -10,7 +10,7 @@ if( isset($_POST['logged_in']) && isset($_POST['user_id']) ){
     $userId = $_POST['user_id'];
 
     // include db connect class
-    require_once __DIR__ . '/db_connect.php';
+    include '../ANowPhp/db_connect.php';
 
     // connecting to db
     $db = new DB_CONNECT();

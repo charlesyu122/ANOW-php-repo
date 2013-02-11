@@ -9,7 +9,7 @@ $response["events"] = array();
 $response["attends"] = array();
 
 // include db connect clas
-require_once __DIR__ . '/db_connect.php';
+include '../ANowPhp/db_connect.php';
 
 // connect to db
 $db = new DB_CONNECT();

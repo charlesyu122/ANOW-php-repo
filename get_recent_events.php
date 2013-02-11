@@ -8,7 +8,7 @@
 $response = array();
 
 // include db connect class
-require_once __DIR__ . '/db_connect.php';
+include '../ANowPhp/db_connect.php';
 
 // connecting to db
 $db = new DB_CONNECT();
@@ -35,7 +35,7 @@ if (mysql_num_rows($result) > 0) {
         $eventId = $row["event_id"];
         
         // query to attends table 
-        $result2 = mysql_query("SELECT * from attends where event_id = '$eventId' AND user_id = '$userId'");
+        $result2 = mysql_query("SELECT * FROM attends where event_id = '$eventId' AND user_id = '$userId'");
         
         if(mysql_num_rows($result2) == 0){
         	$event["event_id"] = $row["event_id"];

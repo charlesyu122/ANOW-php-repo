@@ -12,7 +12,7 @@ if (isset($_POST['attend_id']) ) {
     $status = 'C'; // set to confirmed
 
     // include db connect class
-    require_once __DIR__ . '/db_connect.php';
+    include '../ANowPhp/db_connect.php';
 
     // connecting to db
     $db = new DB_CONNECT();

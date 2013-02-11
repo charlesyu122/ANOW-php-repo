@@ -14,13 +14,13 @@ if( isset($_POST['username']) && isset($_POST['password'])){
   $password = $_POST['password'];
   
   // include db connect class
-  require_once __DIR__ . '/db_connect.php';
-  
+  include '../ANowPhp/db_connect.php';
+ 
   // connecting to db
   $db = new DB_CONNECT();
 
   // mysql select to find username
-  $result = mysql_query("SELECT * from Users WHERE username = '$username' and type = 'M'");
+  $result = mysql_query("SELECT * from users WHERE username = '$username' and type = 'M'");
 
   if($result){
     // mysql get password of result
@@ -46,6 +46,9 @@ if( isset($_POST['username']) && isset($_POST['password'])){
      // invalid username
      $response["success"] = 0;
      $response["message"] = "Invalid username";
+
+     // echoing JSON response
+     echo json_encode($response);
   }
 } else {
   //required field is missing
