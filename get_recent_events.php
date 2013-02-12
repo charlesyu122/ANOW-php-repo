@@ -17,9 +17,10 @@ $db = new DB_CONNECT();
 $today = $_POST['today'];
 $type = 'E';
 $userId = $_POST['user_id'];
+$until = $_POST['until'];
 
 // get all products from products table
-$result = mysql_query("SELECT * FROM events where date_end >= '$today' AND type = '$type'") or die(mysql_error());
+$result = mysql_query("SELECT * FROM events where date_end >= '$today' AND date_end <= '$until' AND type = '$type'") or die(mysql_error());
 
 // check for empty result
 if (mysql_num_rows($result) > 0) {
