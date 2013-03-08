@@ -29,7 +29,7 @@ if( isset($_POST['eventName']) && isset($_POST['timeStart']) && isset($_POST['da
     // mysql insert a row to Events table
     $result = mysql_query("INSERT INTO events(event_name, time_start, date_start, date_end, location, description, type) VALUES('$eventName','$timeStart','$dateStart','$dateEnd','$location','$description','$type')");
     $eventid = mysql_insert_id();
-    $astat = "S"; // for self made
+    $astat = "C"; // for self made
     // mysql insert a row to Attends table
     $result2 = mysql_query("INSERT INTO attends(user_id, event_id, status, private, attend_date) VALUES('$userId','$eventid','$astat','$private','$dateStart')");
     
